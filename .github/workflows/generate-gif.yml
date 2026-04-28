@@ -1,9 +1,6 @@
-name: Generate demo file
+name: Generate demo GIF
 
-on:
-  push:
-    branches: ["main"]
-  workflow_dispatch:
+on: push
 
 permissions:
   contents: write
@@ -13,23 +10,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Website to GIF
+      - name: Wait for Vercel deploy
+        run: sleep 90
+
+      - name: Generate GIF
         uses: pablolec/website-to-gif@main
         with:
-          url: "https://docs.github.com/en/get-started"
+          url: "https://gaba-progect.vercel.app/"
           dest: "preview.gif"
           width: 1280
           height: 720
           duration: 8000
           fps: 15
 
-      - name: Commit GIF to repo
+      - name: Debug files
+        run: ls -la
+
+      - name: Commit GIF
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add preview.gif
-          git commit -m "chore: update demo gif" || echo "No changes to commit"
+          git commit -m "chore: update demo gif" || echo "No changes"
           git push

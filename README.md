@@ -1,6 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gaba Project: Просмотр Деталей Пользователя
 
-## Getting Started
+Этот проект представляет собой демонстрационное Next.js приложение, разработанное для отображения детальной информации о пользователях. Он использует Next.js App Router для маршрутизации и React для построения пользовательского интерфейса.
+
+## Описание Проекта
+
+Приложение позволяет просматривать профили пользователей, отображая их основные данные, контактную информацию, адрес и сведения о компании. Проект демонстрирует:
+
+-   **Динамическую маршрутизацию**: Использование `[id]` для отображения деталей конкретного пользователя.
+-   **Динамическую пагинацию**: Подгрузка новых пользователей по мере прокрутки страницы.
+-   **Загрузку данных**: Асинхронная загрузка данных пользователя с использованием `fetch` и кастомной утилиты `makeRequest`.
+-   **Управление состоянием**: Использование `useState` и `useEffect` для обработки состояния загрузки и данных пользователя.
+-   **Компонентный подход**: Разделение UI на переиспользуемые компоненты (`UserCard`, `ButtonBack`).
+-   **Современный UI**: Использование библиотеки `@heroui/react` для стилизации и базовых UI-элементов.
+-   **Хостинг**: Проект размещен на Vercel.
+
+## Используемые Технологии
+
+-   **Next.js** (App Router) - React фреймворк для продакшена.
+-   **React** - Библиотека для построения пользовательских интерфейсов.
+-   **TypeScript** - Типизированный JavaScript.
+-   **@heroui/react** - UI-библиотека для компонентов.
+-   **Tailwind CSS** (предположительно, для стилизации)
+-   **ESLint** и **Prettier** для поддержания качества кода.
+
+## Начало Работы
+
+Для запуска проекта на локальной машине выполните следующие шаги.
 
 First, run the development server:
 
@@ -34,3 +59,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Скриншоты
+
+*Сюда можно будет добавить скриншоты или гифку работы приложения.*

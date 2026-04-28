@@ -17,8 +17,6 @@ export default function Home() {
     const [page, setPage] = useState<number>(1);
     const lastElement = useRef<HTMLDivElement | null>(null);
 
-    console.log(users);
-
     useEffect(() => {
         const fetchUsers = async () => {
             try {

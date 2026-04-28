@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, Card } from "@heroui/react";
+import { Avatar, Card, Spinner } from "@heroui/react";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -30,7 +30,14 @@ export default function Home1() {
         fetchData();
     }, [id]);
 
-    if (loading) return <div className="p-8 text-center">Загрузка...</div>;
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <Spinner size="xl" />
+            </div>
+        );
+    }
+
     if (!user) return <div className="p-8 text-center text-red-500">Не удалось загрузить пользователя</div>;
 
     return (

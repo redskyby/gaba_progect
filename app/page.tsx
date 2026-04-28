@@ -1,22 +1,34 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Spinner } from "@heroui/react";
+import { useEffect, useRef, useState } from "react";
 
 import { BASE_ROUTE } from "@/src/const/ApiRoutes";
+import useObserver from "@/src/hooks/useObserver";
 import User from "@/src/interfaces/User";
 import { makeRequest } from "@/src/utils/baseFetch";
+import ButtonToTop from "@/src/widjets/buttonToTop/buttonToTop";
 import UserCard from "@/src/widjets/UserCard";
 
 export default function Home() {
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
+    const [page, setPage] = useState<number>(1);
+    const lastElement = useRef<HTMLDivElement | null>(null);
+
     useEffect(() => {
-        const fetchCount = async () => {
+        const fetchUsers = async () => {
             try {
-                const data = await makeRequest<{ users: User[] }>(`${BASE_ROUTE}`, "GET");
-                if (data && data.users) {
-                    setUsers(data.users);
+                setLoading(true);
+
+                const data = await makeRequest<{ users: User[] }>(
+                    `${BASE_ROUTE}?limit=10&skip=${(page - 1) * 10}`,
+                    "GET",
+                );
+
+                if (data?.users) {
+                    setUsers((prev) => [...prev, ...data.users]);
                 }
             } catch (error) {
                 console.error("Ошибка при получении пользователей:", error);
@@ -25,10 +37,18 @@ export default function Home() {
             }
         };
 
-        fetchCount();
-    }, []);
+        fetchUsers();
+    }, [page]);
 
-    if (loading) return <div className="p-8 text-center">Загрузка...</div>;
+    useObserver({ loading, lastElement, setPage });
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <Spinner size="xl" />
+            </div>
+        );
+    }
     if (!users) return <div className="p-8 text-center text-red-500">Не удалось загрузить пользователя</div>;
 
     return (
@@ -36,6 +56,8 @@ export default function Home() {
             {users.map((user) => (
                 <UserCard key={user.id} user={user} />
             ))}
+            <ButtonToTop />
+            <div ref={lastElement}></div>
         </div>
     );
 }

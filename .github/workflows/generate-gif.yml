@@ -2,11 +2,11 @@ name: Generate demo GIF
 
 on:
   push:
-    branches: [ "main" ]  # Запускается при каждом пуше в ветку main
-  workflow_dispatch:       # Позволяет запустить экшен вручную кнопкой
+    branches: [ "main" ]
+  workflow_dispatch:
 
 permissions:
-  contents: write         # Важно! Дает боту право записывать файл в ваш репозиторий
+  contents: write
 
 jobs:
   generate-gif:
@@ -15,26 +15,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Даем Vercel время (60 сек) собрать ваш сайт после пуша
+      # Ожидание сборки на Vercel (можно увеличить до 120, если сайт долго грузится)
       - name: Wait for Vercel deployment
         run: sleep 60
 
       - name: Generate GIF from website
-        uses: PabloLec/website-to-gif@v2.2.0
+        uses: PabloLec/website-to-gif@master
         with:
           url: "https://gaba-progect.vercel.app/"
           dest: "preview.gif"
           width: 1280
           height: 720
-          duration: 10000     # 10 секунд записи
-          scroll: true        # Плавно прокручивает страницу вниз
-          fps: 15             # Оптимальная частота кадров
+          duration: 10000     # Запись 10 секунд
+          scroll: true        # Плавная прокрутка вниз
+          fps: 15             # Частота кадров
 
       - name: Commit and Push GIF
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add preview.gif
-          # [skip ci] нужен, чтобы экшен не запустил сам себя по кругу
           git commit -m "docs: update demo gif [skip ci]" || echo "No changes to commit"
           git push

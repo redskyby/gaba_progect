@@ -15,20 +15,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Ожидание сборки на Vercel (можно увеличить до 120, если сайт долго грузится)
       - name: Wait for Vercel deployment
         run: sleep 60
 
       - name: Generate GIF from website
-        uses: PabloLec/website-to-gif@master
+        # Используем конкретный рабочий хэш вместо master или v2.2.0
+        uses: PabloLec/website-to-gif@7932c668041d8e12613946279f58352668700207
         with:
           url: "https://gaba-progect.vercel.app/"
           dest: "preview.gif"
           width: 1280
           height: 720
-          duration: 10000     # Запись 10 секунд
-          scroll: true        # Плавная прокрутка вниз
-          fps: 15             # Частота кадров
+          duration: 10000
+          scroll: true
+          fps: 15
 
       - name: Commit and Push GIF
         run: |

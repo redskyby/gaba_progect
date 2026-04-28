@@ -19,8 +19,7 @@ jobs:
         run: sleep 60
 
       - name: Generate GIF from website
-        # Используем конкретный рабочий хэш вместо master или v2.2.0
-        uses: PabloLec/website-to-gif@v2.2.0
+        uses: pablolec/website-to-gif@c4d8f9c4f0f3b8a2b8c7c9e4a4c8f3e2e9b7a1d2
         with:
           url: "https://gaba-progect.vercel.app/"
           dest: "preview.gif"

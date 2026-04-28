@@ -1,9 +1,8 @@
 "use client";
 
 import { Avatar, Card } from "@heroui/react";
-import Image from "next/image";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import User from "@/src/interfaces/User";
 import { makeRequest } from "@/src/utils/baseFetch";
@@ -33,29 +32,62 @@ export default function Home1() {
     if (!user) return <div className="p-8 text-center text-red-500">Не удалось загрузить пользователя</div>;
 
     return (
-        <div className="flex flex-wrap gap-4">
-            hello
-            <Card className="w-[200px] gap-2">
-                <Image
-                    alt="Indie Hackers community"
-                    className="pointer-events-none aspect-square w-14 rounded-2xl object-cover select-none"
-                    loading="lazy"
-                    src={user?.image}
-                />
-                <Card.Header>
-                    <Card.Title>Indie Hackers</Card.Title>
-                    <Card.Description>148 members</Card.Description>
-                </Card.Header>
-                <Card.Footer className="flex gap-2">
-                    <Avatar aria-label="Martha's profile picture" className="size-5">
+        <div className="max-w-xl mx-auto p-6">
+            <Card className="p-6 rounded-2xl border border-gray-200 shadow-sm bg-white">
+                {/* Аватар + имя */}
+                <div className="flex items-center gap-4">
+                    <Avatar className="w-20 h-20">
                         <Avatar.Image
-                            alt="Martha's avatar"
-                            src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/red.jpg"
+                            src={user.image}
+                            alt={`${user.firstName} ${user.lastName}`}
+                            className="object-cover"
                         />
-                        <Avatar.Fallback className="text-xs">IH</Avatar.Fallback>
+                        <Avatar.Fallback className="text-2xl font-semibold">
+                            {user.firstName[0]}
+                            {user.lastName[0]}
+                        </Avatar.Fallback>
                     </Avatar>
-                    <span className="text-xs">By Martha</span>
-                </Card.Footer>
+
+                    <div>
+                        <h1 className="text-2xl font-bold">
+                            {user.firstName} {user.lastName}
+                            {user.maidenName && <span className="text-default-500"> ({user.maidenName})</span>}
+                        </h1>
+
+                        <p className="text-default-500">
+                            {user.gender === "female" ? "Женщина" : "Мужчина"}, {user.age} лет
+                        </p>
+                    </div>
+                </div>
+
+                {/* Контакты */}
+                <div className="mt-6 space-y-1">
+                    <h2 className="text-lg font-semibold">Контакты</h2>
+                    <p className="text-default-600">📧 {user.email}</p>
+                </div>
+
+                {/* Адрес */}
+                {user.address && (
+                    <div className="mt-6 space-y-1">
+                        <h2 className="text-lg font-semibold">Адрес</h2>
+                        <p className="text-default-600">{user.address.address}</p>
+                        <p className="text-default-600">
+                            {user.address.city}, {user.address.state} ({user.address.stateCode}),{" "}
+                            {user.address.postalCode}
+                        </p>
+                    </div>
+                )}
+
+                {/* Компания */}
+                {user.company && (
+                    <div className="mt-6 space-y-1">
+                        <h2 className="text-lg font-semibold">Компания</h2>
+                        <p className="text-default-600">{user.company.name}</p>
+                        <p className="text-default-600">
+                            {user.company.department} · {user.company.title}
+                        </p>
+                    </div>
+                )}
             </Card>
         </div>
     );

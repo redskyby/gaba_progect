@@ -31,7 +31,7 @@ export default function Home() {
     if (!users) return <div className="p-8 text-center text-red-500">Не удалось загрузить пользователя</div>;
 
     return (
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-col gap-4 max-w-2xl mx-auto py-6">
             {users.map((user) => (
                 <UserCard key={user.id} user={user} />
             ))}

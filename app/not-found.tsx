@@ -1,22 +1,26 @@
 "use client";
 
-import { Button } from "@heroui/react";
+import { Button, Card } from "@heroui/react";
 import Link from "next/link";
-import React from "react";
 
 const Page = () => (
-    <section className="flex items-center justify-center h-full  bg-gray-100 mt-2.5">
-        <div className="max-w-md px-8 py-6 rounded-lg border border-red-500 bg-white shadow-md text-center">
-            <h1 className="text-2xl font-bold text-red-600">Ой, такой страницы не существует</h1>
-            <h2 className="text-lg text-red-500">Попробуйте еще раз!</h2>
-            <div className="flex flex-col items-center">
-                <Link href="/">
-                    <Button variant="danger" className="my-2.5 shadow-lg">
-                        Вернуться на главную
-                    </Button>
-                </Link>
-            </div>
-        </div>
+    <section className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 p-4">
+        <Card className="p-10 max-w-lg w-full text-center shadow-xl border border-red-300 bg-white rounded-3xl">
+            <h1 className="text-4xl font-bold text-red-600 mb-2">Ошибка 404</h1>
+
+            <p className="text-lg text-red-500 mb-6">Такой страницы не существует</p>
+
+            <p className="text-default-600 mb-8">Возможно, вы перешли по неверной ссылке или страница была удалена.</p>
+
+            <Link href="/" className="inline-block">
+                <Button
+                    variant="danger"
+                    className="px-6 py-2 text-lg font-medium rounded-xl shadow-md hover:shadow-lg transition-all"
+                >
+                    Вернуться на главную
+                </Button>
+            </Link>
+        </Card>
     </section>
 );
 

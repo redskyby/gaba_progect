@@ -11,51 +11,53 @@ const UserCard = ({ user }: { user: User }) => {
     };
 
     return (
-        <div className="container mx-auto p-4 max-w-2xl" onClick={() => handleRowClick(user.id)}>
-            <Card>
+        <div className="cursor-pointer" onClick={() => handleRowClick(user.id)}>
+            <Card className="p-4 shadow-sm hover:shadow-md transition-shadow rounded-xl border border-gray-200 bg-white">
                 <Card.Header className="flex gap-4 items-center">
-                    <Avatar>
-                        <Avatar.Image src={user.image} className="w-16 h-16 rounded-full" />
+                    <Avatar className="w-16 h-16">
+                        <Avatar.Image src={user.image} className="w-16 h-16 rounded-full object-cover" />
                     </Avatar>
+
                     <div>
-                        <h1 className="text-xl font-bold">
+                        <h1 className="text-xl font-semibold leading-tight">
                             {user.firstName} {user.lastName}
-                            {user.maidenName && ` (${user.maidenName})`}
+                            {user.maidenName && <span className="text-default-500"> ({user.maidenName})</span>}
                         </h1>
-                        <p className="text-default-500">
+
+                        <p className="text-default-500 text-sm">
                             {user.gender === "female" ? "Женщина" : "Мужчина"}, {user.age} лет
                         </p>
                     </div>
                 </Card.Header>
 
-                <div className="space-y-4">
+                <div className="mt-4 space-y-5">
                     {/* Контакты */}
-                    <div>
-                        <h2 className="text-md font-semibold">Контакты</h2>
-                        <p>📧 {user.email}</p>
-                    </div>
+                    <section>
+                        <h2 className="text-md font-semibold mb-1">Контакты</h2>
+                        <p className="text-default-600">📧 {user.email}</p>
+                    </section>
 
                     {/* Адрес */}
                     {user.address && (
-                        <div>
-                            <h2 className="text-md font-semibold">Адрес</h2>
-                            <p>{user.address.address}</p>
-                            <p>
+                        <section>
+                            <h2 className="text-md font-semibold mb-1">Адрес</h2>
+                            <p className="text-default-600">{user.address.address}</p>
+                            <p className="text-default-600">
                                 {user.address.city}, {user.address.state} ({user.address.stateCode}),{" "}
                                 {user.address.postalCode}
                             </p>
-                        </div>
+                        </section>
                     )}
 
                     {/* Компания */}
                     {user.company && (
-                        <div>
-                            <h2 className="text-md font-semibold">Компания</h2>
-                            <p>{user.company.name}</p>
-                            <p>
+                        <section>
+                            <h2 className="text-md font-semibold mb-1">Компания</h2>
+                            <p className="text-default-600">{user.company.name}</p>
+                            <p className="text-default-600">
                                 {user.company.department} · {user.company.title}
                             </p>
-                        </div>
+                        </section>
                     )}
                 </div>
             </Card>

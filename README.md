@@ -1,27 +1,42 @@
 # Gaba Project: Просмотр Деталей Пользователя
 
-Этот проект представляет собой демонстрационное Next.js приложение, разработанное для отображения детальной информации о пользователях. Он использует Next.js App Router для маршрутизации и React для построения пользовательского интерфейса.
+**Ссылка на проект: [https://gaba-progect.vercel.app/](https://gaba-progect.vercel.app/)**
 
-## Описание Проекта
+Этот проект представляет собой демонстрационное Next.js приложение, разработанное для отображения детальной информации о пользователях.
 
-Приложение позволяет просматривать профили пользователей, отображая их основные данные, контактную информацию, адрес и сведения о компании. Проект демонстрирует:
+## Структура и описание проекта
 
-- **Динамическую маршрутизацию**: Использование `[id]` для отображения деталей конкретного пользователя.
-- **Динамическую пагинацию**: Подгрузка новых пользователей по мере прокрутки страницы.
-- **Загрузку данных**: Асинхронная загрузка данных пользователя с использованием `fetch` и кастомной утилиты `makeRequest`.
-- **Управление состоянием**: Использование `useState` и `useEffect` для обработки состояния загрузки и данных пользователя.
-- **Компонентный подход**: Разделение UI на переиспользуемые компоненты (`UserCard`, `ButtonBack`).
-- **Современный UI**: Использование библиотеки `@heroui/react` для стилизации и базовых UI-элементов.
-- **Хостинг**: Проект размещен на Vercel.
+Приложение состоит из трёх ключевых страниц:
+
+-   **Главная страница (`/`)**: Отображает список карточек пользователей. Реализована динамическая пагинация (бесконечная прокрутка), которая подгружает новых пользователей по мере скролла.
+-   **Страница пользователя (`/user/[id]`)**: Открывается при клике на карточку пользователя. Это динамическая страница, которая загружает и отображает подробную информацию о конкретном пользователе.
+-   **Страница 404**: Кастомная страница для обработки несуществующих URL, что улучшает пользовательский опыт.
+
+Проект демонстрирует следующие подходы:
+-   **Динамическая маршрутизация** и обработка ошибок.
+-   **Динамическая пагинация** (бесконечная прокрутка).
+-   **Асинхронная загрузка данных** с помощью `fetch`.
+-   **Компонентный подход** для переиспользуемых элементов UI.
 
 ## Используемые Технологии
 
-- **Next.js** (App Router) - React фреймворк для продакшена.
-- **React** - Библиотека для построения пользовательских интерфейсов.
-- **TypeScript** - Типизированный JavaScript.
-- **@heroui/react** - UI-библиотека для компонентов.
-- **Tailwind CSS** (предположительно, для стилизации)
-- **ESLint** и **Prettier** для поддержания качества кода.
+-   **Next.js** (App Router)
+-   **React**
+-   **TypeScript**
+-   **@heroui/react** для UI-компонентов
+-   **Tailwind CSS** для стилизации
+-   **ESLint** и **Prettier** для статического анализа и форматирования кода.
+-   **Husky** для управления гит-хуками.
+
+## Автоматизация и качество кода
+
+### Husky (гит-хуки)
+
+В проекте настроен **Husky** для автоматического контроля качества кода. Перед каждым коммитом (`pre-commit`) запускаются **ESLint** и **Prettier**. Это гарантирует, что в репозиторий попадает только отформатированный код, соответствующий стандартам проекта.
+
+### GitHub Actions
+
+Настроен workflow в **GitHub Actions**, который автоматически обновляет демонстрационную GIF-анимацию (`demo.gif`) в этом README. После каждого пуша в ветку `main`, Action заходит на развернутый сайт, записывает его работу и обновляет GIF-файл в репозитории. Это гарантирует, что демонстрация всегда актуальна.
 
 ## Начало Работы
 
@@ -41,25 +56,10 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Демонстрация Работы
 
-## Скриншоты
-
-_Сюда можно будет добавить скриншоты или гифку работы приложения._
+![Демонстрация работы приложения](./demo.gif)

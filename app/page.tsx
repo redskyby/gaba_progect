@@ -17,6 +17,8 @@ export default function Home() {
     const [page, setPage] = useState<number>(1);
     const lastElement = useRef<HTMLDivElement | null>(null);
 
+    console.log(users);
+
     useEffect(() => {
         const fetchUsers = async () => {
             try {
@@ -40,15 +42,16 @@ export default function Home() {
         fetchUsers();
     }, [page]);
 
-    useObserver({ loading, lastElement, setPage });
+    useObserver({ loading, lastElement, setPage, users });
 
-    if (loading) {
+    if (loading && users.length === 0) {
         return (
             <div className="flex items-center justify-center min-h-screen">
                 <Spinner size="xl" />
             </div>
         );
     }
+
     if (!users) return <div className="p-8 text-center text-red-500">Не удалось загрузить пользователя</div>;
 
     return (
@@ -56,6 +59,14 @@ export default function Home() {
             {users.map((user) => (
                 <UserCard key={user.id} user={user} />
             ))}
+
+            {/* loader при догрузке */}
+            {loading && (
+                <div className="flex justify-center py-4">
+                    <Spinner />
+                </div>
+            )}
+
             <ButtonToTop />
             <div ref={lastElement}></div>
         </div>

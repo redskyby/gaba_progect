@@ -4,11 +4,11 @@ import { useEffect, useRef } from "react";
 
 import Observer from "@/src/interfaces/Observer";
 
-const useObserver = ({ loading, lastElement, setPage }: Observer) => {
+const useObserver = ({ loading, lastElement, setPage, users }: Observer) => {
     const observer = useRef<IntersectionObserver | null>(null);
 
     useEffect(() => {
-        if (loading) return;
+        if (loading && users.length === 0) return;
 
         if (observer.current) {
             observer.current.disconnect();
@@ -31,7 +31,7 @@ const useObserver = ({ loading, lastElement, setPage }: Observer) => {
                 observer.current.disconnect();
             }
         };
-    }, [loading, lastElement, setPage]);
+    }, [loading, lastElement, setPage, users]);
 };
 
 export default useObserver;

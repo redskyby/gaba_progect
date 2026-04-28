@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Website to GIF
-        uses: pablolec/website-to-gif@v2.1.5
+        uses: pablolec/website-to-gif@main
         with:
           url: "https://docs.github.com/en/get-started"
           dest: "preview.gif"

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import { BASE_ROUTE } from "@/src/const/ApiRoutes";
 import User from "@/src/interfaces/User";
 import { makeRequest } from "@/src/utils/baseFetch";
 import UserCard from "@/src/widjets/UserCard";
@@ -13,7 +14,7 @@ export default function Home() {
     useEffect(() => {
         const fetchCount = async () => {
             try {
-                const data = await makeRequest<{ users: User[] }>("https://dummyjson.com/users", "GET");
+                const data = await makeRequest<{ users: User[] }>(`${BASE_ROUTE}`, "GET");
                 if (data && data.users) {
                     setUsers(data.users);
                 }

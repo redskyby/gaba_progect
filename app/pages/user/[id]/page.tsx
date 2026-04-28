@@ -4,8 +4,10 @@ import { Avatar, Card } from "@heroui/react";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
+import { BASE_ROUTE } from "@/src/const/ApiRoutes";
 import User from "@/src/interfaces/User";
 import { makeRequest } from "@/src/utils/baseFetch";
+import ButtonBack from "@/src/widjets/buttonBack/ButtonBack";
 export default function Home1() {
     const [user, setUser] = useState<User | null>(null);
     const params = useParams();
@@ -16,7 +18,7 @@ export default function Home1() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await makeRequest<User>(`https://dummyjson.com/users/${id}`, "GET");
+                const data = await makeRequest<User>(`${BASE_ROUTE}/${id}`, "GET");
                 if (data) setUser(data);
             } catch (error) {
                 console.error(error);
@@ -32,7 +34,7 @@ export default function Home1() {
     if (!user) return <div className="p-8 text-center text-red-500">Не удалось загрузить пользователя</div>;
 
     return (
-        <div className="max-w-xl mx-auto p-6">
+        <div className="max-w-xl mx-auto p-6 relative min-h-screen">
             <Card className="p-6 rounded-2xl border border-gray-200 shadow-sm bg-white">
                 {/* Аватар + имя */}
                 <div className="flex items-center gap-4">
@@ -89,6 +91,11 @@ export default function Home1() {
                     </div>
                 )}
             </Card>
+
+            {/* Кнопка назад — внизу справа */}
+            <div className="fixed bottom-6 right-6 z-50">
+                <ButtonBack />
+            </div>
         </div>
     );
 }

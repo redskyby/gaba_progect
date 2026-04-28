@@ -24,7 +24,7 @@ jobs:
         with:
           url: "https://gaba-progect.vercel.app/"
           # Указываем полный путь к файлу в рабочей директории
-          dest: "${{ github.workspace }}/preview.gif"
+          dest: "${{ github.workspace }}/demo.gif"
           width: 1280
           height: 720
           duration: 8000
@@ -35,7 +35,7 @@ jobs:
       - name: Debug files
         run: |
           echo "Проверяем наличие файла:"
-          ls -la ${{ github.workspace }}/preview.gif || echo "Файл НЕ НАЙДЕН"
+          ls -la ${{ github.workspace }}/demo.gif || echo "Файл НЕ НАЙДЕН"
 
       - name: Commit GIF
         run: |

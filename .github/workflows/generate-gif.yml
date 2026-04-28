@@ -43,12 +43,12 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
           # Проверяем, существует ли файл, прежде чем добавлять
-          if [ -f "preview.gif" ]; then
-            git add preview.gif
-            # [skip ci] крайне важен!
-            git commit -m "chore: update demo gif [skip ci]" || echo "No changes"
-            git push
+          if [ -f "demo.gif" ]; then
+          git add demo.gif
+          # [skip ci] крайне важен!
+          git commit -m "chore: update demo gif [skip ci]" || echo "No changes"
+          git push
           else
-            echo "Ошибка: preview.gif не был создан. Проверьте логи шага Generate GIF."
+            echo "Ошибка: demo.gif не был создан. Проверьте логи шага Generate GIF."
             exit 1
           fi

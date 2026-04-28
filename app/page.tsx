@@ -7,8 +7,8 @@ import { BASE_ROUTE } from "@/src/const/ApiRoutes";
 import useObserver from "@/src/hooks/useObserver";
 import User from "@/src/interfaces/User";
 import { makeRequest } from "@/src/utils/baseFetch";
-import ButtonToTop from "@/src/widjets/buttonToTop/buttonToTop";
-import UserCard from "@/src/widjets/UserCard";
+import ButtonToTop from "@/src/widgets/buttonToTop/buttonToTop";
+import UserCard from "@/src/widgets/UserCard";
 
 export default function Home() {
     const [users, setUsers] = useState<User[]>([]);

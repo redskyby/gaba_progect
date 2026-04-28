@@ -7,8 +7,9 @@ import React, { useEffect, useState } from "react";
 import { BASE_ROUTE } from "@/src/const/ApiRoutes";
 import User from "@/src/interfaces/User";
 import { makeRequest } from "@/src/utils/baseFetch";
-import ButtonBack from "@/src/widjets/buttonBack/ButtonBack";
-export default function Home1() {
+import ButtonBack from "@/src/widgets/buttonBack/ButtonBack";
+
+export default function Page() {
     const [user, setUser] = useState<User | null>(null);
     const params = useParams();
     const [loading, setLoading] = useState<boolean>(true);

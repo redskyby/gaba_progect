@@ -1,6 +1,9 @@
 name: Generate demo GIF
 
-on: push
+on:
+  push:
+    branches: [ "main" ] # Запускаем только при пуше в основную ветку
+  workflow_dispatch:      # Чтобы можно было запустить кнопкой для теста
 
 permissions:
   contents: write
@@ -10,7 +13,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Wait for Vercel deploy
         run: sleep 90
@@ -19,19 +23,32 @@ jobs:
         uses: pablolec/website-to-gif@main
         with:
           url: "https://gaba-progect.vercel.app/"
-          dest: "preview.gif"
+          # Указываем полный путь к файлу в рабочей директории
+          dest: "${{ github.workspace }}/preview.gif"
           width: 1280
           height: 720
           duration: 8000
           fps: 15
+          # Добавляем аргументы для стабильного запуска Chrome в Docker/Ubuntu
+          args: "--no-sandbox --disable-setuid-sandbox"
 
       - name: Debug files
-        run: ls -la
+        run: |
+          echo "Проверяем наличие файла:"
+          ls -la ${{ github.workspace }}/preview.gif || echo "Файл НЕ НАЙДЕН"
 
       - name: Commit GIF
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add preview.gif
-          git commit -m "chore: update demo gif" || echo "No changes"
-          git push
+          
+          # Проверяем, существует ли файл, прежде чем добавлять
+          if [ -f "preview.gif" ]; then
+            git add preview.gif
+            # [skip ci] крайне важен!
+            git commit -m "chore: update demo gif [skip ci]" || echo "No changes"
+            git push
+          else
+            echo "Ошибка: preview.gif не был создан. Проверьте логи шага Generate GIF."
+            exit 1
+          fi
